@@ -11,7 +11,7 @@
 
 <br><br>
 
-<button onclick="generate()">Generate Data</button>
+<button onclick="generate()">Generate</button>
 
 <br><br>
 
@@ -26,24 +26,24 @@ let data = [];
 
 function generate(){
 
-let a = Number(document.getElementById("n1").value);
-let b = Number(document.getElementById("n2").value);
-let c = Number(document.getElementById("n3").value);
-let d = Number(document.getElementById("n4").value);
+let a = parseInt(document.getElementById("n1").value) || 0;
+let b = parseInt(document.getElementById("n2").value) || 0;
+let c = parseInt(document.getElementById("n3").value) || 0;
+let d = parseInt(document.getElementById("n4").value) || 0;
 
 data = [];
 
-// simple logic (aapke Excel jaisa pattern banane ke liye)
 for(let i=0;i<10;i++){
   data.push([
-    a+i,
-    b+i*2,
-    c+i*3,
-    d+i*4
+    a + i,
+    b + i,
+    c + i,
+    d + i
   ]);
 }
 
-document.getElementById("output").innerHTML = "Data Generated ✅";
+document.getElementById("output").innerHTML = "Data Generated";
+console.log(data); // debug
 
 }
 
@@ -56,7 +56,7 @@ for(let i=0;i<data.length;i++){
   for(let j=0;j<data[i].length;j++){
     
     if(data[i][j] == num){
-      found += "Found at Row "+(i+1)+" Column "+(j+1)+"<br>";
+      found += "Row "+(i+1)+" Col "+(j+1)+"<br>";
     }
 
   }
