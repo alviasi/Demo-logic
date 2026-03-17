@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Logic Generator</h2>
+
+<input id="n1" placeholder="1">
+<input id="n2" placeholder="4">
+<input id="n3" placeholder="6">
+<input id="n4" placeholder="8">
+
+<br><br>
+
+<button onclick="generate()">Generate Data</button>
+
+<br><br>
+
+<input id="search" placeholder="Search number">
+<button onclick="searchData()">Search</button>
+
+<p id="output"></p>
+
+<script>
+
+let data = [];
+
+function generate(){
+
+let a = Number(document.getElementById("n1").value);
+let b = Number(document.getElementById("n2").value);
+let c = Number(document.getElementById("n3").value);
+let d = Number(document.getElementById("n4").value);
+
+data = [];
+
+// simple logic (aapke Excel jaisa pattern banane ke liye)
+for(let i=0;i<10;i++){
+  data.push([
+    a+i,
+    b+i*2,
+    c+i*3,
+    d+i*4
+  ]);
+}
+
+document.getElementById("output").innerHTML = "Data Generated ✅";
+
+}
+
+function searchData(){
+
+let num = document.getElementById("search").value;
+let found = "";
+
+for(let i=0;i<data.length;i++){
+  for(let j=0;j<data[i].length;j++){
+    
+    if(data[i][j] == num){
+      found += "Found at Row "+(i+1)+" Column "+(j+1)+"<br>";
+    }
+
+  }
+}
+
+if(found==""){
+  document.getElementById("output").innerHTML="Not Found";
+}else{
+  document.getElementById("output").innerHTML=found;
+}
+
+}
+
+</script>
+
+</body>
+</html>
