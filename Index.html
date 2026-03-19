@@ -21,7 +21,10 @@
 <p id="output"></p>
 
 <script>
-
+function logout(){
+localStorage.removeItem("login");
+window.location.href = "login.html";
+}
 let data = [];
 
 function generate(){
