@@ -21,10 +21,10 @@
 <p id="output"></p>
 
 <script>
-function logout(){
-localStorage.removeItem("login");
-window.location.href = "login.html";
+if(localStorage.getItem("login") !== "yes"){
+    window.location.href = "login.html";
 }
+</script>
 let data = [];
 
 function generate(){
