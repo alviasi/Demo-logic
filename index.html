@@ -1,79 +1,35 @@
-<!DOCTYPE html>
-<html>
-<body>
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Excel Input Page</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input { display: block; margin: 10px 0; padding: 8px; width: 200px; }
+    button { padding: 10px 15px; }
+  </style>
+</head>
+<body>  <h2>Excel Input Form</h2>  <input type="number" id="box1" placeholder="Box 1 (A1)">
+  <input type="number" id="box2" placeholder="Box 2 (A2)">
+  <input type="number" id="box3" placeholder="Box 3 (A3)"><button onclick="generateExcel()">Download Excel</button>
 
-<h2>Logic Generator</h2>
+  <script>
+    function generateExcel() {
+      let val1 = document.getElementById('box1').value;
+      let val2 = document.getElementById('box2').value;
+      let val3 = document.getElementById('box3').value;
 
-<input id="n1" placeholder="1">
-<input id="n2" placeholder="4">
-<input id="n3" placeholder="6">
-<input id="n4" placeholder="8">
+      let data = [
+        [val1],
+        [val2],
+        [val3]
+      ];
 
-<br><br>
+      let ws = XLSX.utils.aoa_to_sheet(data);
+      let wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
 
-<button onclick="generate()">Generate</button>
-
-<br><br>
-
-<input id="search" placeholder="Search number">
-<button onclick="searchData()">Search</button>
-
-<p id="output"></p>
-
-<script>
-if(localStorage.getItem("login") !== "yes"){
-    window.location.href = "login.html";
-}
-</script>
-let data = [];
-
-function generate(){
-
-let a = parseInt(document.getElementById("n1").value) || 0;
-let b = parseInt(document.getElementById("n2").value) || 0;
-let c = parseInt(document.getElementById("n3").value) || 0;
-let d = parseInt(document.getElementById("n4").value) || 0;
-
-data = [];
-
-for(let i=0;i<10;i++){
-  data.push([
-    a + i,
-    b + i,
-    c + i,
-    d + i
-  ]);
-}
-
-document.getElementById("output").innerHTML = "Data Generated";
-console.log(data); // debug
-
-}
-
-function searchData(){
-
-let num = document.getElementById("search").value;
-let found = "";
-
-for(let i=0;i<data.length;i++){
-  for(let j=0;j<data[i].length;j++){
-    
-    if(data[i][j] == num){
-      found += "Row "+(i+1)+" Col "+(j+1)+"<br>";
+      XLSX.writeFile(wb, "output.xlsx");
     }
-
-  }
-}
-
-if(found==""){
-  document.getElementById("output").innerHTML="Not Found";
-}else{
-  document.getElementById("output").innerHTML=found;
-}
-
-}
-
-</script>
-
-</body>
+  </script></body>
 </html>
