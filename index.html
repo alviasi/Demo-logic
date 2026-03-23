@@ -1,1 +1,56 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Excel Input Page</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input { display: block; margin: 10px 0; padding: 8px; width: 220px; }
+    button { padding: 10px 15px; margin-top: 10px; }
+  </style>
+</head>
+<body>  <h2>Excel Input Form</h2>  <input type="number" id="box1" placeholder="Box 1 (A1)">
+  <input type="number" id="box2" placeholder="Box 2 (A2)">
+  <input type="number" id="box3" placeholder="Box 3 (A3)">  <input type="text" id="box4" placeholder="C7 Value Show" readonly><button onclick="loadFromDrive()">Load from Google Drive</button> <button onclick="generateExcel()">Download Excel</button>
 
+  <script>
+    function generateExcel() {
+      let val1 = document.getElementById('box1').value;
+      let val2 = document.getElementById('box2').value;
+      let val3 = document.getElementById('box3').value;
+
+      let data = [
+        [val1],
+        [val2],
+        [val3]
+      ];
+
+      let ws = XLSX.utils.aoa_to_sheet(data);
+      let wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+      XLSX.writeFile(wb, "output.xlsx");
+    }
+
+    async function loadFromDrive() {
+      const url = "https://docs.google.com/spreadsheets/d/1IWFngGmDQ40FOA1NTeaNoUNY7hcfOevf/export?format=xlsx";
+
+      try {
+        const response = await fetch(url);
+        const data = await response.arrayBuffer();
+
+        const workbook = XLSX.read(data, { type: "array" });
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+
+        const cell = worksheet["C7"];
+        const value = cell ? cell.v : "";
+
+        document.getElementById("box4").value = value;
+      } catch (err) {
+        alert("Error loading file. Make sure Google Sheet is shared to 'Anyone with link'.");
+        console.error(err);
+      }
+    }
+  </script></body>
+</html>
