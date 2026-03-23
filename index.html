@@ -5,13 +5,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <style>
     body { font-family: Arial; padding: 20px; }
-    input { display: block; margin: 10px 0; padding: 8px; width: 200px; }
+    input { display: block; margin: 10px 0; padding: 8px; width: 220px; }
     button { padding: 10px 15px; margin-top: 10px; }
   </style>
 </head>
 <body>  <h2>Excel Input Form</h2>  <input type="number" id="box1" placeholder="Box 1 (A1)">
   <input type="number" id="box2" placeholder="Box 2 (A2)">
-  <input type="number" id="box3" placeholder="Box 3 (A3)">  <input type="text" id="box4" placeholder="C7 Value Show" readonly>  <input type="file" id="fileInput" accept=".xlsx, .xls"><button onclick="readExcel()">Load Excel (Read C7)</button> <button onclick="generateExcel()">Download Excel</button>
+  <input type="number" id="box3" placeholder="Box 3 (A3)">  <input type="text" id="box4" placeholder="C7 Value Show" readonly><button onclick="loadFromDrive()">Load from Google Drive</button> <button onclick="generateExcel()">Download Excel</button>
 
   <script>
     function generateExcel() {
@@ -32,28 +32,25 @@
       XLSX.writeFile(wb, "output.xlsx");
     }
 
-    function readExcel() {
-      let file = document.getElementById('fileInput').files[0];
-      if (!file) {
-        alert("Please select an Excel file first");
-        return;
+    async function loadFromDrive() {
+      const url = "https://docs.google.com/spreadsheets/d/1IWFngGmDQ40FOA1NTeaNoUNY7hcfOevf/export?format=xlsx";
+
+      try {
+        const response = await fetch(url);
+        const data = await response.arrayBuffer();
+
+        const workbook = XLSX.read(data, { type: "array" });
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+
+        const cell = worksheet["C7"];
+        const value = cell ? cell.v : "";
+
+        document.getElementById("box4").value = value;
+      } catch (err) {
+        alert("Error loading file. Make sure Google Sheet is shared to 'Anyone with link'.");
+        console.error(err);
       }
-
-      let reader = new FileReader();
-      reader.onload = function(e) {
-        let data = new Uint8Array(e.target.result);
-        let workbook = XLSX.read(data, { type: 'array' });
-
-        let sheetName = workbook.SheetNames[0];
-        let worksheet = workbook.Sheets[sheetName];
-
-        let cell = worksheet['C7'];
-        let value = cell ? cell.v : '';
-
-        document.getElementById('box4').value = value;
-      };
-
-      reader.readAsArrayBuffer(file);
     }
   </script></body>
 </html>
