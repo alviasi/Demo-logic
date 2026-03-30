@@ -2,14 +2,34 @@
 <html>
 <head>
   <title>Public</title>
+
+  <style>
+    #boxes {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .box {
+      border: 2px solid black;
+      padding: 20px;
+      width: 80px;
+      text-align: center;
+      font-size: 20px;
+      background: lightblue;
+    }
+  </style>
 </head>
 <body>
 
-<h2>Public Data</h2>
+<h2 style="text-align:center;">Public Data</h2>
 
 <div id="boxes"></div>
 
-<h3>Price: <span id="price">Loading...</span></h3>
+<h3 style="text-align:center;">
+  Price: <span id="price">Loading...</span>
+</h3>
 
 <script type="module">
 import { db } from "./firebase.js";
@@ -21,16 +41,18 @@ async function loadData() {
   querySnapshot.forEach((doc) => {
     const d = doc.data();
 
-    document.getElementById("boxes").innerHTML = `
-      <div>${d.a1}</div>
-      <div>${d.a2}</div>
-      <div>${d.a3}</div>
-      <div>${d.a4}</div>
-      <div>${d.a5}</div>
-      <div>${d.a6}</div>
+    const container = document.getElementById("boxes");
+
+    container.innerHTML = `
+      <div class="box">${d.a1 || ""}</div>
+      <div class="box">${d.a2 || ""}</div>
+      <div class="box">${d.a3 || ""}</div>
+      <div class="box">${d.a4 || ""}</div>
+      <div class="box">${d.a5 || ""}</div>
+      <div class="box">${d.a6 || ""}</div>
     `;
 
-    document.getElementById("price").innerText = d.b1;
+    document.getElementById("price").innerText = d.b1 || "No Price";
   });
 }
 
