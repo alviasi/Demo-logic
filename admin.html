@@ -1,1 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+</head>
+<body>
 
+<h2>Admin Panel</h2>
+
+<input type="text" id="a1" placeholder="A1"><br>
+<input type="text" id="a2" placeholder="A2"><br>
+<input type="text" id="a3" placeholder="A3"><br>
+<input type="text" id="a4" placeholder="A4"><br>
+<input type="text" id="a5" placeholder="A5"><br>
+<input type="text" id="a6" placeholder="A6"><br><br>
+
+<input type="text" id="b1" placeholder="Price (B1)"><br><br>
+
+<button onclick="saveData()">Save</button>
+
+<script type="module">
+import { db } from "./firebase.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+window.saveData = async function () {
+  const a1 = document.getElementById("a1").value;
+  const a2 = document.getElementById("a2").value;
+  const a3 = document.getElementById("a3").value;
+  const a4 = document.getElementById("a4").value;
+  const a5 = document.getElementById("a5").value;
+  const a6 = document.getElementById("a6").value;
+  const b1 = document.getElementById("b1").value;
+
+  try {
+    await addDoc(collection(db, "data"), {
+      a1, a2, a3, a4, a5, a6, b1
+    });
+
+    alert("Saved ✅");
+  } catch (e) {
+    alert(e.message);
+  }
+};
+</script>
+
+</body>
+</html>
