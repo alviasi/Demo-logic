@@ -43,15 +43,16 @@
   <input class="box" id="a4">
   <input class="box" id="a5">
   <input class="box" id="a6">
-
-  <!-- 7th box -->
   <input class="box priceBox" id="price" readonly>
 </div>
+
+<br>
+<button onclick="saveData()">Save Data</button>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, doc, getDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAqPLAXT1pyRuR3BgAl9PyoXZjBEH861Gg",
@@ -71,7 +72,7 @@ window.login = function() {
   signInWithEmailAndPassword(auth, email, pass)
     .then(() => {
       alert("Login Success ✅");
-      loadPrice(); // load B1 after login
+      loadPrice();
     })
     .catch(err => alert(err.message));
 };
@@ -82,10 +83,30 @@ async function loadPrice() {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    const data = docSnap.data();
-    document.getElementById("price").value = data.price || "";
+    document.getElementById("price").value = docSnap.data().price || "";
   }
 }
+
+// SAVE DATA
+window.saveData = async function() {
+  const a1 = document.getElementById("a1").value;
+  const a2 = document.getElementById("a2").value;
+  const a3 = document.getElementById("a3").value;
+  const a4 = document.getElementById("a4").value;
+  const a5 = document.getElementById("a5").value;
+  const a6 = document.getElementById("a6").value;
+  const price = document.getElementById("price").value;
+
+  try {
+    await addDoc(collection(db, "entries"), {
+      a1, a2, a3, a4, a5, a6, price
+    });
+
+    alert("Data Saved ✅");
+  } catch (e) {
+    alert(e.message);
+  }
+};
 </script>
 
 </body>
