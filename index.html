@@ -1,56 +1,41 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Excel Input Page</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <style>
-    body { font-family: Arial; padding: 20px; }
-    input { display: block; margin: 10px 0; padding: 8px; width: 220px; }
-    button { padding: 10px 15px; margin-top: 10px; }
-  </style>
+  <title>Public</title>
 </head>
-<body>  <h2>Excel Input Form</h2>  <input type="number" id="box1" placeholder="Box 1 (A1)">
-  <input type="number" id="box2" placeholder="Box 2 (A2)">
-  <input type="number" id="box3" placeholder="Box 3 (A3)">  <input type="text" id="box4" placeholder="C7 Value Show" readonly><button onclick="loadFromDrive()">Load from Google Drive</button> <button onclick="generateExcel()">Download Excel</button>
+<body>
 
-  <script>
-    function generateExcel() {
-      let val1 = document.getElementById('box1').value;
-      let val2 = document.getElementById('box2').value;
-      let val3 = document.getElementById('box3').value;
+<h2>Public Data</h2>
 
-      let data = [
-        [val1],
-        [val2],
-        [val3]
-      ];
+<div id="boxes"></div>
 
-      let ws = XLSX.utils.aoa_to_sheet(data);
-      let wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+<h3>Price: <span id="price">Loading...</span></h3>
 
-      XLSX.writeFile(wb, "output.xlsx");
-    }
+<script type="module">
+import { db } from "./firebase.js";
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    async function loadFromDrive() {
-      const url = "https://docs.google.com/spreadsheets/d/1IWFngGmDQ40FOA1NTeaNoUNY7hcfOevf/export?format=xlsx";
+async function loadData() {
+  const querySnapshot = await getDocs(collection(db, "data"));
 
-      try {
-        const response = await fetch(url);
-        const data = await response.arrayBuffer();
+  querySnapshot.forEach((doc) => {
+    const d = doc.data();
 
-        const workbook = XLSX.read(data, { type: "array" });
-        const sheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[sheetName];
+    document.getElementById("boxes").innerHTML = `
+      <div>${d.a1}</div>
+      <div>${d.a2}</div>
+      <div>${d.a3}</div>
+      <div>${d.a4}</div>
+      <div>${d.a5}</div>
+      <div>${d.a6}</div>
+    `;
 
-        const cell = worksheet["C7"];
-        const value = cell ? cell.v : "";
+    document.getElementById("price").innerText = d.b1;
+  });
+}
 
-        document.getElementById("box4").value = value;
-      } catch (err) {
-        alert("Error loading file. Make sure Google Sheet is shared to 'Anyone with link'.");
-        console.error(err);
-      }
-    }
-  </script></body>
+loadData();
+</script>
+
+</body>
 </html>
