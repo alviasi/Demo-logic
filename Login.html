@@ -11,7 +11,13 @@
 <input type="password" id="password" placeholder="Password"><br><br>
 
 <button onclick="login()">Login</button>
+<button onclick="goToAdmin()">Admin Panel</button>
 
+<script>
+function goToAdmin() {
+  window.location.href = "admin.html";
+}
+</script>
 <script type="module">
 import { auth } from "./firebase.js";
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
