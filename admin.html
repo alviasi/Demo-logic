@@ -17,7 +17,8 @@
 <input type="text" id="b1" placeholder="Price (B1)"><br><br>
 
 <button onclick="saveData()">Save</button>
-
+<input type="file" id="fileInput" accept=".xlsx">
+<button onclick="uploadExcel()">Upload Excel</button>
 <script type="module">
 import { db } from "./firebase.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
