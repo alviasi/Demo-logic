@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Excel Logic Web App</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      padding: 30px;
+      background: #f4f4f4;
+    }
+    input {
+      padding: 10px;
+      margin: 5px;
+      width: 60px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Number Calculator (Excel → Web)</h2>
+
+  <div id="inputs"></div>
+
+  <button onclick="calculate()">Calculate</button>
+
+  <div id="result"></div>
+
+  <script>
+    // Create 10 input boxes (like Excel cells)
+    const inputDiv = document.getElementById("inputs");
+    for (let i = 0; i < 10; i++) {
+      let input = document.createElement("input");
+      input.type = "number";
+      input.id = "num" + i;
+      inputDiv.appendChild(input);
+    }
+
+    function calculate() {
+      let values = [];
+      for (let i = 0; i < 10; i++) {
+        let val = parseFloat(document.getElementById("num" + i).value) || 0;
+        values.push(val);
+      }
+
+      // Example logic (Excel style)
+      let sum = values.reduce((a, b) => a + b, 0);
+      let avg = sum / values.length;
+      let max = Math.max(...values);
+      let min = Math.min(...values);
+
+      document.getElementById("result").innerHTML =
+        "Sum: " + sum + "<br>" +
+        "Average: " + avg.toFixed(2) + "<br>" +
+        "Max: " + max + "<br>" +
+        "Min: " + min;
+    }
+  </script>
+
+</body>
+</html>
