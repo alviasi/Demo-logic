@@ -1,8 +1,7 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Excel Logic Web App</title>
+  <title>Excel Logic Web Version</title>
   <style>
     body {
       font-family: Arial;
@@ -13,7 +12,7 @@
     input {
       padding: 10px;
       margin: 5px;
-      width: 60px;
+      width: 80px;
       font-size: 16px;
     }
     button {
@@ -24,49 +23,51 @@
     }
     #result {
       margin-top: 20px;
-      font-size: 20px;
+      font-size: 18px;
       color: green;
     }
   </style>
 </head>
 <body>
 
-  <h2>Number Calculator (Excel → Web)</h2>
+  <h2>D1 Sheet Calculator</h2>
 
-  <div id="inputs"></div>
+  <div>
+    <input type="number" id="a10" placeholder="A10">
+    <input type="number" id="a11" placeholder="A11">
+    <input type="number" id="a12" placeholder="A12">
+    <input type="number" id="a13" placeholder="A13">
+  </div>
 
   <button onclick="calculate()">Calculate</button>
 
   <div id="result"></div>
 
   <script>
-    // Create 10 input boxes (like Excel cells)
-    const inputDiv = document.getElementById("inputs");
-    for (let i = 0; i < 10; i++) {
-      let input = document.createElement("input");
-      input.type = "number";
-      input.id = "num" + i;
-      inputDiv.appendChild(input);
-    }
-
     function calculate() {
-      let values = [];
-      for (let i = 0; i < 10; i++) {
-        let val = parseFloat(document.getElementById("num" + i).value) || 0;
-        values.push(val);
+      let a10 = parseFloat(document.getElementById("a10").value) || 0;
+      let a11 = parseFloat(document.getElementById("a11").value) || 0;
+      let a12 = parseFloat(document.getElementById("a12").value) || 0;
+      let a13 = parseFloat(document.getElementById("a13").value) || 0;
+
+      let results = [];
+
+      // 🔥 GUESS LOGIC (Excel-style simulation)
+      for (let i = 28; i <= 63; i++) {
+        let value = (a10 * i) + (a11 * 2) - (a12) + (a13 * (i % 5));
+
+        // Sirf > 0 values show karni hain
+        if (value > 0) {
+          results.push("G" + i + " = " + value);
+        }
       }
 
-      // Example logic (Excel style)
-      let sum = values.reduce((a, b) => a + b, 0);
-      let avg = sum / values.length;
-      let max = Math.max(...values);
-      let min = Math.min(...values);
-
-      document.getElementById("result").innerHTML =
-        "Sum: " + sum + "<br>" +
-        "Average: " + avg.toFixed(2) + "<br>" +
-        "Max: " + max + "<br>" +
-        "Min: " + min;
+      // Display
+      if (results.length > 0) {
+        document.getElementById("result").innerHTML = results.join("<br>");
+      } else {
+        document.getElementById("result").innerHTML = "No values > 0";
+      }
     }
   </script>
 
