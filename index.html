@@ -1,62 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Excel Pattern Match</title>
+  <title>Exact Excel Logic</title>
   <style>
     body { font-family: Arial; text-align: center; }
-    input { padding: 10px; margin: 5px; width: 80px; }
-    .row { margin: 3px; }
+    input { padding: 8px; margin: 5px; width: 100px; }
     .one { color: green; font-weight: bold; }
     .zero { color: red; }
   </style>
 </head>
 <body>
 
-<h2>Excel Logic (Match System)</h2>
+<h2>Excel Logic (F → G)</h2>
 
-<input type="number" id="a10" placeholder="A10">
-<input type="number" id="a11" placeholder="A11">
-<input type="number" id="a12" placeholder="A12">
-<input type="number" id="a13" placeholder="A13">
+<div id="inputs"></div>
 
-<br>
-<button onclick="calculate()">Check</button>
+<button onclick="calculate()">Calculate</button>
 
 <div id="result"></div>
 
 <script>
+// Create inputs for F28–F53
+const inputDiv = document.getElementById("inputs");
+for (let i = 28; i <= 53; i++) {
+  let input = document.createElement("input");
+  input.placeholder = "F" + i;
+  input.id = "f" + i;
+  inputDiv.appendChild(input);
+}
+
 function calculate() {
-  let a10 = parseInt(document.getElementById("a10").value) || 0;
-  let a11 = parseInt(document.getElementById("a11").value) || 0;
-  let a12 = parseInt(document.getElementById("a12").value) || 0;
-  let a13 = parseInt(document.getElementById("a13").value) || 0;
-
-  // G28–G63 numbers (approx from image pattern)
-  let gValues = [
-    107,112,117,122,127,122,127,132,137,142,137,142,
-    147,152,157,152,157,162,167,172,167,172,177,182,
-    187,182,187,192,197
-  ];
-
   let resultHTML = "";
 
-  gValues.forEach((val, index) => {
+  for (let i = 28; i <= 53; i++) {
+    let val = document.getElementById("f" + i).value;
 
-    // 🔥 Matching logic (important)
-    let match = (
-      val % 10 === a10 ||
-      val % 10 === a11 ||
-      val % 10 === a12 ||
-      val % 10 === a13
-    );
+    if (val === "") continue;
 
-    let output = match ? 1 : 0;
+    let last2 = parseInt(val.toString().slice(-2)) || 0;
 
-    resultHTML += `<div class="row">
-      G${28 + index} = ${val} → 
-      <span class="${output ? 'one' : 'zero'}">${output}</span>
-    </div>`;
-  });
+    let result = (last2 < 10) ? last2 : 0;
+
+    resultHTML += `
+      <div>
+        G${i} → <span class="${result ? 'one' : 'zero'}">${result}</span>
+      </div>
+    `;
+  }
 
   document.getElementById("result").innerHTML = resultHTML;
 }
