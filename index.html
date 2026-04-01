@@ -1,49 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Exact Excel Logic</title>
+  <title>Full Excel System</title>
   <style>
     body { font-family: Arial; text-align: center; }
-    input { padding: 8px; margin: 5px; width: 100px; }
+    input { padding: 8px; margin: 5px; width: 80px; }
     .one { color: green; font-weight: bold; }
     .zero { color: red; }
   </style>
 </head>
 <body>
 
-<h2>Excel Logic (F → G)</h2>
+<h2>Excel Complete Logic</h2>
 
-<div id="inputs"></div>
+<!-- A10–A13 Inputs -->
+<div>
+  <input type="number" id="a10" placeholder="A10">
+  <input type="number" id="a11" placeholder="A11">
+  <input type="number" id="a12" placeholder="A12">
+  <input type="number" id="a13" placeholder="A13">
+</div>
 
+<br>
 <button onclick="calculate()">Calculate</button>
 
+<h3>Results (G28–G53)</h3>
 <div id="result"></div>
 
 <script>
-// Create inputs for F28–F53
-const inputDiv = document.getElementById("inputs");
-for (let i = 28; i <= 53; i++) {
-  let input = document.createElement("input");
-  input.placeholder = "F" + i;
-  input.id = "f" + i;
-  inputDiv.appendChild(input);
-}
-
 function calculate() {
+
+  let a10 = parseInt(document.getElementById("a10").value) || 0;
+  let a11 = parseInt(document.getElementById("a11").value) || 0;
+  let a12 = parseInt(document.getElementById("a12").value) || 0;
+  let a13 = parseInt(document.getElementById("a13").value) || 0;
+
   let resultHTML = "";
 
   for (let i = 28; i <= 53; i++) {
-    let val = document.getElementById("f" + i).value;
 
-    if (val === "") continue;
+    // 🔥 F column generation (approx logic)
+    let fValue = (a10 * i) + (a11 * 10) + (a12 * 5) + a13;
 
-    let last2 = parseInt(val.toString().slice(-2)) || 0;
-
-    let result = (last2 < 10) ? last2 : 0;
+    // 🔥 Excel formula: last 2 digits < 10
+    let last2 = parseInt(fValue.toString().slice(-2)) || 0;
+    let gValue = (last2 < 10) ? last2 : 0;
 
     resultHTML += `
       <div>
-        G${i} → <span class="${result ? 'one' : 'zero'}">${result}</span>
+        F${i} = ${fValue} → 
+        G${i} = <span class="${gValue ? 'one' : 'zero'}">${gValue}</span>
       </div>
     `;
   }
