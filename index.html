@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Excel Web System</title>
+  <title>Working Excel System</title>
   <style>
     body { font-family: Arial; text-align: center; }
     input { padding: 6px; margin: 3px; width: 80px; }
@@ -11,9 +11,9 @@
 </head>
 <body>
 
-<h2>Excel System (A → F → G)</h2>
+<h2>Excel System (Now Working)</h2>
 
-<!-- A10–A13 Inputs -->
+<!-- A Inputs -->
 <div>
   <input type="number" id="a10" placeholder="A10">
   <input type="number" id="a11" placeholder="A11">
@@ -26,13 +26,13 @@
 
 <button onclick="calculate()">Calculate G</button>
 
-<h3>Results (G)</h3>
+<h3>Results</h3>
 <div id="result"></div>
 
 <script>
-// Create F inputs
 const fDiv = document.getElementById("fInputs");
 
+// Create inputs
 for (let i = 28; i <= 53; i++) {
   let input = document.createElement("input");
   input.placeholder = "F" + i;
@@ -41,25 +41,20 @@ for (let i = 28; i <= 53; i++) {
 }
 
 function calculate() {
-
-  let a10 = document.getElementById("a10").value;
-  let a11 = document.getElementById("a11").value;
-  let a12 = document.getElementById("a12").value;
-  let a13 = document.getElementById("a13").value;
-
   let html = "";
 
   for (let i = 28; i <= 53; i++) {
     let val = document.getElementById("f" + i).value;
 
-    if (!val) continue;
+    // agar empty ho to 0 le lo
+    let num = parseInt(val) || 0;
 
-    let last2 = parseInt(val.toString().slice(-2)) || 0;
+    let last2 = parseInt(num.toString().slice(-2)) || 0;
     let g = (last2 < 10) ? last2 : 0;
 
     html += `
       <div>
-        F${i} = ${val} → 
+        F${i} = ${num} → 
         G${i} = <span class="${g ? 'one' : 'zero'}">${g}</span>
       </div>
     `;
