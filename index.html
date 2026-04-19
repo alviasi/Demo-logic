@@ -1,67 +1,42 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Working Excel System</title>
-  <style>
-    body { font-family: Arial; text-align: center; }
-    input { padding: 6px; margin: 3px; width: 80px; }
-    .one { color: green; font-weight: bold; }
-    .zero { color: red; }
-  </style>
-</head>
 <body>
 
-<h2>Excel System (Now Working)</h2>
+<h2>Data from Sheet</h2>
 
-<!-- A Inputs -->
-<div>
-  <input type="number" id="a10" placeholder="A10">
-  <input type="number" id="a11" placeholder="A11">
-  <input type="number" id="a12" placeholder="A12">
-  <input type="number" id="a13" placeholder="A13">
-</div>
+<h3>Column B Data</h3>
+<ul id="colB"></ul>
 
-<h3>Enter F Values</h3>
-<div id="fInputs"></div>
-
-<button onclick="calculate()">Calculate G</button>
-
-<h3>Results</h3>
-<div id="result"></div>
+<h3>Column AJ Data</h3>
+<ul id="colAJ"></ul>
 
 <script>
-const fDiv = document.getElementById("fInputs");
+fetch("https://opensheet.elk.sh/1IWFngGmDQ40FOA1NTeaNoUNY7hcfOevf/Sheet1")
+.then(res => res.json())
+.then(data => {
 
-// Create inputs
-for (let i = 28; i <= 53; i++) {
-  let input = document.createElement("input");
-  input.placeholder = "F" + i;
-  input.id = "f" + i;
-  fDiv.appendChild(input);
-}
+  let listB = document.getElementById("colB");
+  let listAJ = document.getElementById("colAJ");
 
-function calculate() {
-  let html = "";
+  data.forEach(row => {
 
-  for (let i = 28; i <= 53; i++) {
-    let val = document.getElementById("f" + i).value;
+    // Column B
+    if(row.B){
+      let li = document.createElement("li");
+      li.textContent = row.B;
+      listB.appendChild(li);
+    }
 
-    // agar empty ho to 0 le lo
-    let num = parseInt(val) || 0;
+    // Column AJ
+    if(row.AJ){
+      let li2 = document.createElement("li");
+      li2.textContent = row.AJ;
+      listAJ.appendChild(li2);
+    }
 
-    let last2 = parseInt(num.toString().slice(-2)) || 0;
-    let g = (last2 < 10) ? last2 : 0;
+  });
 
-    html += `
-      <div>
-        F${i} = ${num} → 
-        G${i} = <span class="${g ? 'one' : 'zero'}">${g}</span>
-      </div>
-    `;
-  }
-
-  document.getElementById("result").innerHTML = html;
-}
+});
 </script>
 
 </body>
