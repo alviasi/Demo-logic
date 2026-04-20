@@ -6,7 +6,28 @@
   <input name="col5" placeholder="E"><br><br>
   <input name="col6" placeholder="F"><br><br>
 <div id="data"></div>
+<h2>Live Data</h2>
+<ul id="list"></ul>
 
+<script>
+function loadData() {
+  fetch("https://script.google.com/macros/s/AKfycbzVA6I3S-3-7ZLnG-ojTfN2T6oDjA_GZ2x-l6vj4Mtg8fX7Eh9LuDSa2PaHw1y-iPfY/exec")
+    .then(res => res.json())
+    .then(data => {
+      let output = "";
+      data.forEach(row => {
+        output += "<li>" + row[0] + "</li>";
+      });
+      document.getElementById("list").innerHTML = output;
+    });
+}
+
+// First load
+loadData();
+
+// Auto refresh every 5 sec
+setInterval(loadData, 5000);
+</script>
 <script>
 fetch("https://script.google.com/macros/s/AKfycbzVA6I3S-3-7ZLnG-ojTfN2T6oDjA_GZ2x-l6vj4Mtg8fX7Eh9LuDSa2PaHw1y-iPfY/exec")
   .then(res => res.text())
