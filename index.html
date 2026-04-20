@@ -1,7 +1,3 @@
-<!DOCTYPE html>
-<html>
-<body>
-
 <h2>Data Entry</h2>
 
 <form id="form">
@@ -21,13 +17,9 @@ document.getElementById("form").addEventListener("submit", function(e){
 
   fetch("https://script.google.com/macros/s/AKfycbzVA6I3S-3-7ZLnG-ojTfN2T6oDjA_GZ2x-l6vj4Mtg8fX7Eh9LuDSa2PaHw1y-iPfY/exec", {
     method: "POST",
-    mode: "no-cors",   // 🔥 IMPORTANT
     body: new FormData(this)
   });
 
-  alert("Data Submitted!");
+  alert("Submitted");
 });
 </script>
-
-</body>
-</html>
