@@ -1,6 +1,4 @@
-<h2>Data Entry</h2>
-
-<form id="form">
+<form action="https://script.google.com/macros/s/AKfycbzVA6I3S-3-7ZLnG-ojTfN2T6oDjA_GZ2x-l6vj4Mtg8fX7Eh9LuDSa2PaHw1y-iPfY/exec" method="POST">
   <input name="col1" placeholder="A"><br><br>
   <input name="col2" placeholder="B"><br><br>
   <input name="col3" placeholder="C"><br><br>
@@ -10,16 +8,3 @@
 
   <button type="submit">Submit</button>
 </form>
-
-<script>
-document.getElementById("form").addEventListener("submit", function(e){
-  e.preventDefault();
-
-  fetch("https://script.google.com/macros/s/AKfycbzVA6I3S-3-7ZLnG-ojTfN2T6oDjA_GZ2x-l6vj4Mtg8fX7Eh9LuDSa2PaHw1y-iPfY/exec", {
-    method: "POST",
-    body: new FormData(this)
-  });
-
-  alert("Submitted");
-});
-</script>
