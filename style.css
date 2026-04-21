@@ -11,3 +11,16 @@
   background: #f2f2f2;
 }
 </style>
+<style>
+.info {
+  position: fixed;
+  right: 10px;
+  top: 100px;
+  width: 250px;
+  background: rgba(0,0,0,0.7);
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: left;
+}
+</style>
