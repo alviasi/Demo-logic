@@ -1,15 +1,122 @@
-<form id="myForm">
-  <input name="col1" placeholder="A1"><br><br>
-  <input name="col2" placeholder="A2"><br><br>
-  <input name="col3" placeholder="A3"><br><br>
-  <input name="col4" placeholder="A4"><br><br>
-  <input name="col5" placeholder="A5"><br><br>
-  <input name="col6" placeholder="A6"><br><br>
-<h2>Result</h2>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PMU Pronostique King</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      color: white;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 38px;
+    }
+
+    .text {
+      max-width: 600px;
+      margin: auto;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    #box {
+      width: 250px;
+      height: 120px;
+      border-radius: 15px;
+      font-size: 30px;
+      padding: 20px;
+      margin: 30px auto;
+      background: white;
+      color: black;
+    }
+
+    input {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #00c9a7;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #00a98f;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>PMU PRONOSTIQUE KING 👑</h1>
+
+<div class="text">
+
+<p><b>🇬🇧 English</b></p>
+<p>
+For over <b>50 years</b>, we have been helping people across Asia.  
+Now, we are proudly helping people in Europe.  
+We analyze number patterns and provide accurate predictions.  
+If you want to increase your chances of winning,  
+👉 <b>try this website at least once!</b>
+</p>
+
+<p><b>🇫🇷 Français</b></p>
+<p>
+Depuis plus de <b>50 ans</b>, nous aidons les gens en Asie.  
+Aujourd’hui, nous aidons également les personnes en Europe.  
+Nous analysons les mouvements des numéros pour fournir des prédictions fiables.  
+Si vous souhaitez augmenter vos chances de gagner,  
+👉 <b>essayez ce site au moins une fois !</b>
+</p>
+
+</div>
 
 <div id="box">Loading...</div>
 
+<form id="myForm">
+  <input name="col1" placeholder="A1"><br>
+  <input name="col2" placeholder="A2"><br>
+  <input name="col3" placeholder="A3"><br>
+  <input name="col4" placeholder="A4"><br>
+  <input name="col5" placeholder="A5"><br>
+  <input name="col6" placeholder="A6"><br>
+
+  <button type="submit">Submit</button>
+</form>
+
+<p id="msg"></p>
+
 <script>
+// Submit without reload
+document.getElementById("myForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  let formData = new FormData(this);
+
+  fetch("https://script.google.com/macros/s/AKfycbzVA6I3S-3-7ZLnG-ojTfN2T6oDjA_GZ2x-l6vj4Mtg8fX7Eh9LuDSa2PaHw1y-iPfY/exec", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("msg").innerText = "Data Saved ✅";
+    document.getElementById("myForm").reset();
+  });
+});
+
+// Load B1
 function loadData() {
   fetch("https://script.google.com/macros/s/AKfycbzVA6I3S-3-7ZLnG-ojTfN2T6oDjA_GZ2x-l6vj4Mtg8fX7Eh9LuDSa2PaHw1y-iPfY/exec")
     .then(res => res.text())
@@ -21,25 +128,6 @@ function loadData() {
 loadData();
 setInterval(loadData, 3000);
 </script>
-  <button type="submit">Submit</button>
-</form>
 
-<p id="msg"></p>
-
-<script>
-document.getElementById("myForm").addEventListener("submit", function(e){
-  e.preventDefault(); // ❗ page reload rokta hai
-
-  let formData = new FormData(this);
-
-  fetch("https://script.google.com/macros/s/AKfycbzVA6I3S-3-7ZLnG-ojTfN2T6oDjA_GZ2x-l6vj4Mtg8fX7Eh9LuDSa2PaHw1y-iPfY/exec", {
-    method: "POST",
-    body: formData
-  })
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById("msg").innerText = "Data Saved ✅";
-    document.getElementById("myForm").reset(); // form clear
-  });
-});
-</script>
+</body>
+</html>
