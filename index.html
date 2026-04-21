@@ -1,19 +1,30 @@
-< action="https://script.google.com/macros/s/AKfycbzVA6I3S-3-7ZLnG-ojTfN2T6oDjA_GZ2x-l6vj4Mtg8fX7Eh9LuDSa2PaHw1y-iPfY/exec" method="POST">
-  <iformnput name="col1" placeholder="A"><br><br>
-  <input name="col2" placeholder="B"><br><br>
-  <input name="col3" placeholder="C"><br><br>
-  <input name="col4" placeholder="D"><br><br>
-  <input name="col5" placeholder="E"><br><br>
-  <input name="col6" placeholder="F"><br><br>
-<div id="data"></div>
-<h2>Live Data</h2>
-</script>
-<script>
-fetch("https://script.google.com/macros/s/AKfycbzVA6I3S-3-7ZLnG-ojTfN2T6oDjA_GZ2x-l6vj4Mtg8fX7Eh9LuDSa2PaHw1y-iPfY/exec")
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById("data").innerText = data;
-  });
-</script>
+<form id="myForm">
+  <input name="col1" placeholder="A1"><br><br>
+  <input name="col2" placeholder="A2"><br><br>
+  <input name="col3" placeholder="A3"><br><br>
+  <input name="col4" placeholder="A4"><br><br>
+  <input name="col5" placeholder="A5"><br><br>
+  <input name="col6" placeholder="A6"><br><br>
+
   <button type="submit">Submit</button>
 </form>
+
+<p id="msg"></p>
+
+<script>
+document.getElementById("myForm").addEventListener("submit", function(e){
+  e.preventDefault(); // ❗ page reload rokta hai
+
+  let formData = new FormData(this);
+
+  fetch("https://script.google.com/macros/s/AKfycbzVA6I3S-3-7ZLnG-ojTfN2T6oDjA_GZ2x-l6vj4Mtg8fX7Eh9LuDSa2PaHw1y-iPfY/exec", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("msg").innerText = "Data Saved ✅";
+    document.getElementById("myForm").reset(); // form clear
+  });
+});
+</script>
