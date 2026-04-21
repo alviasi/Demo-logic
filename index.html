@@ -5,7 +5,22 @@
   <input name="col4" placeholder="A4"><br><br>
   <input name="col5" placeholder="A5"><br><br>
   <input name="col6" placeholder="A6"><br><br>
+<h2>Result</h2>
 
+<div id="box">Loading...</div>
+
+<script>
+function loadData() {
+  fetch("https://script.google.com/macros/s/AKfycbzVA6I3S-3-7ZLnG-ojTfN2T6oDjA_GZ2x-l6vj4Mtg8fX7Eh9LuDSa2PaHw1y-iPfY/exec")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("box").innerText = data;
+    });
+}
+
+loadData();
+setInterval(loadData, 3000);
+</script>
   <button type="submit">Submit</button>
 </form>
 
