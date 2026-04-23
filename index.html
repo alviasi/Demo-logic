@@ -1,8 +1,9 @@
-<!DOCTYPE html>
-<html>
 <head>
   <title>PMU Pronostique King</title>
 
+  <meta name="google-site-verification" content="google2e8a0aaf2d5615ea" />
+
+  <style>
     body {
       font-family: Arial;
       text-align: center;
@@ -55,96 +56,3 @@
     }
   </style>
 </head>
-
-<body>
-
-<h1>PMU PRONOSTIQUE KING 👑</h1>
-
-<div class="text">
-
-<p><b>🇬🇧 English</b></p>
-<p>
-For over <b>50 years</b>, we have been helping people across Asia.  
-Now, we are proudly helping people in Europe.  
-We analyze number patterns and provide accurate predictions.  
-If you want to increase your chances of winning,  
-👉 <b>try this website at least once!</b>
-</p>
-
-<p><b>🇫🇷 Français</b></p>
-<p>
-Depuis plus de <b>50 ans</b>, nous aidons les gens en Asie.  
-Aujourd’hui, nous aidons également les personnes en Europe.  
-Nous analysons les mouvements des numéros pour fournir des prédictions fiables.  
-Si vous souhaitez augmenter vos chances de gagner,  
-👉 <b>essayez ce site au moins une fois !</b>
-</p>
-
-</div>
-<div class="info">
-
-<h3>📌 How to Enter Numbers</h3>
-
-<p><b>🇬🇧 English:</b><br>
-Enter each race winner number in separate boxes.<br>
-Start from the top (first race) and go down.<br>
-👉 The last race number should be in the bottom box.
-</p>
-
-<p><b>🇫🇷 Français:</b><br>
-Entrez le numéro gagnant de chaque course dans une case séparée.<br>
-Commencez par le haut (première course) et descendez.<br>
-👉 Le numéro de la dernière course doit être dans la dernière case.
-</p>
-
-</div>
-<div id="box">Loading...</div>
-
-<form id="myForm">
-  <input name="col1" placeholder="A1"><br>
-  <input name="col2" placeholder="A2"><br>
-  <input name="col3" placeholder="A3"><br>
-  <input name="col4" placeholder="A4"><br>
-  <input name="col5" placeholder="A5"><br>
-  <input name="col6" placeholder="A6"><br>
-
-  <button type="submit">Submit</button>
-</form>
-
-<p id="msg"></p>
-
-<script>
-// Submit without reload
-document.getElementById("myForm").addEventListener("submit", function(e){
-  e.preventDefault();
-
-  let formData = new FormData(this);
-
-  fetch("https://script.google.com/macros/s/AKfycbzVA6I3S-3-7ZLnG-ojTfN2T6oDjA_GZ2x-l6vj4Mtg8fX7Eh9LuDSa2PaHw1y-iPfY/exec", {
-    method: "POST",
-    body: formData
-  })
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById("msg").innerText = "Data Saved ✅";
-    document.getElementById("myForm").reset();
-  });
-});
-
-// Load B1
-function loadData() {
-  fetch("https://script.google.com/macros/s/AKfycbzVA6I3S-3-7ZLnG-ojTfN2T6oDjA_GZ2x-l6vj4Mtg8fX7Eh9LuDSa2PaHw1y-iPfY/exec")
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("box").innerText = data;
-    });
-}
-
-loadData();
-setInterval(loadData, 3000);
-</script>
-<a href="https://wa.me/33650071399?text=Hello%20/%20Bonjour,%20I%20need%20information" target="_blank" class="whatsapp">
-  💬 Chat on WhatsApp
-</a>
-</body>
-</html>
