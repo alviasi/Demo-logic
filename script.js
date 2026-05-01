@@ -1,6 +1,4 @@
-function submitData() {
-  alert("Data submitted!");
-}
+
 function submitData() {
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
