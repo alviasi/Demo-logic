@@ -2,13 +2,10 @@
 <html>
 <head>
   <title>PMU Pronostique King</title>
-google2e8a0aaf2d5615ea.html
-  <title>PMU Pronostic Gagnant | Horse Racing Prediction France</title>
 
-<meta name="description" content="PMU pronostic gagnant, horse racing prediction France, numéro gagnant PMU. Get daily winning numbers and predictions.">
+  <meta name="description" content="PMU pronostic gagnant, horse racing prediction France">
+  <meta name="keywords" content="PMU pronostic gagnant, PMU tips">
 
-<meta name="keywords" content="PMU pronostic gagnant, horse racing prediction France, numéro gagnant PMU, PMU tips, pronostic PMU">
-  
   <style>
     body {
       font-family: Arial;
@@ -16,17 +13,6 @@ google2e8a0aaf2d5615ea.html
       background: linear-gradient(to right, #667eea, #764ba2);
       color: white;
       padding: 20px;
-    }
-
-    h1 {
-      font-size: 38px;
-    }
-
-    .text {
-      max-width: 600px;
-      margin: auto;
-      font-size: 18px;
-      line-height: 1.6;
     }
 
     #box {
@@ -52,13 +38,8 @@ google2e8a0aaf2d5615ea.html
       background: #00c9a7;
       border: none;
       color: white;
-      font-size: 16px;
       border-radius: 5px;
       cursor: pointer;
-    }
-
-    button:hover {
-      background: #00a98f;
     }
   </style>
 </head>
@@ -66,40 +47,9 @@ google2e8a0aaf2d5615ea.html
 <body>
 
 <h1>PMU PRONOSTIQUE KING 👑</h1>
-<h2>Best PMU Pronostic Gagnant in France</h2>
-<div class="text">
 
-<p><b>🇬🇧 English</b></p>
-<p>
-We provide <b>PMU pronostic gagnant</b> and accurate <b>horse racing prediction in France</b>.  
-Our system gives <b>numéro gagnant PMU</b> based on number analysis.
-
-  
-For over <b>50 years</b>, we have been helping people across Asia.  
-Now, we are proudly helping people in Europe.  
-We analyze number patterns and provide accurate predictions.  
-If you want to increase your chances of winning,  
-👉 <b>try this website at least once!</b>
-</p>
-
-<p><b>🇫🇷 Français</b></p>
-<p>
-Depuis plus de <b>50 ans</b>, nous aidons les gens en Asie.  
-Aujourd’hui, nous aidons également les personnes en Europe.  
-Nous analysons les mouvements des numéros pour fournir des prédictions fiables.  
-Si vous souhaitez augmenter vos chances de gagner,  
-👉 <b>essayez ce site au moins une fois !</b>
-</p>
-
-</div>
-<h3>🎥 How to Use This Website</h3>
-
-<iframe width="100%" height="220"
-src="https://www.youtube.com/embed/qWdVu1iINQU"
-frameborder="0"
-allowfullscreen>
-</iframe>
 <div id="box">Loading...</div>
+
 <h3>🔐 Login</h3>
 
 <input type="text" id="username" placeholder="Username"><br>
@@ -108,6 +58,9 @@ allowfullscreen>
 <button onclick="submitData()">Login</button>
 
 <p id="loginMsg"></p>
+
+<h3>📥 Data Entry</h3>
+
 <form id="myForm">
   <input name="col1" placeholder="A1"><br>
   <input name="col2" placeholder="A2"><br>
@@ -122,7 +75,30 @@ allowfullscreen>
 <p id="msg"></p>
 
 <script>
-// Submit without reload
+
+// LOGIN
+function submitData() {
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+
+  fetch("https://script.google.com/macros/s/AKfycbzVA6I3S-3-7ZLnG-ojTfN2T6oDjA_GZ2x-l6vj4Mtg8fX7Eh9LuDSa2PaHw1y-iPfY/exec", {
+    method: "POST",
+    body: new URLSearchParams({
+      username: username,
+      password: password
+    })
+  })
+  .then(res => res.text())
+  .then(data => {
+    if(data === "success"){
+      document.getElementById("loginMsg").innerText = "Login Success ✅";
+    } else {
+      document.getElementById("loginMsg").innerText = "Wrong Username/Password ❌";
+    }
+  });
+}
+
+// FORM SUBMIT
 document.getElementById("myForm").addEventListener("submit", function(e){
   e.preventDefault();
 
@@ -139,7 +115,7 @@ document.getElementById("myForm").addEventListener("submit", function(e){
   });
 });
 
-// Load B1
+// LOAD B1
 function loadData() {
   fetch("https://script.google.com/macros/s/AKfycbzVA6I3S-3-7ZLnG-ojTfN2T6oDjA_GZ2x-l6vj4Mtg8fX7Eh9LuDSa2PaHw1y-iPfY/exec")
     .then(res => res.text())
@@ -150,10 +126,8 @@ function loadData() {
 
 loadData();
 setInterval(loadData, 3000);
+
 </script>
-<a href="https://wa.me/33650071399?text=Hello%20/%20Bonjour,%20I%20need%20information" target="_blank" class="whatsapp">
-  💬 Chat on WhatsApp
-</a>
+
 </body>
-  <script src="script.js"></script>
 </html>
